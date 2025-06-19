@@ -7,79 +7,121 @@ import BookingForm, { BookingFormData } from "@/components/BookingForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 
-// Sample data
+// Your Services
 const services = [
   {
-    id: "haircut",
-    name: "Signature Haircut & Style",
-    description: "Premium cut and styling with our expert stylists",
+    id: "basic-facial",
+    name: "Classic Facial",
+    description: "Deep cleansing, exfoliation, and moisturizing treatment",
     duration: 60,
     price: 85
   },
   {
-    id: "manicure",
-    name: "Luxury Manicure",
-    description: "Complete nail care with premium polish",
+    id: "deluxe-facial",
+    name: "Deluxe Anti-Aging Facial",
+    description: "Advanced facial with anti-aging serums and LED therapy",
+    duration: 90,
+    price: 125
+  },
+  {
+    id: "acne-facial",
+    name: "Acne Treatment Facial",
+    description: "Specialized treatment for acne-prone skin with extractions",
+    duration: 75,
+    price: 95
+  },
+  {
+    id: "swedish-massage-60",
+    name: "Swedish Massage (60 min)",
+    description: "Full-body relaxation massage with gentle, flowing strokes",
+    duration: 60,
+    price: 100
+  },
+  {
+    id: "swedish-massage-90",
+    name: "Swedish Massage (90 min)",
+    description: "Extended full-body massage for ultimate relaxation",
+    duration: 90,
+    price: 140
+  },
+  {
+    id: "eyebrow-wax",
+    name: "Eyebrow Waxing",
+    description: "Professional eyebrow shaping and grooming",
+    duration: 30,
+    price: 35
+  },
+  {
+    id: "lip-wax",
+    name: "Lip Waxing",
+    description: "Gentle upper lip hair removal",
+    duration: 15,
+    price: 20
+  },
+  {
+    id: "full-face-wax",
+    name: "Full Face Waxing",
+    description: "Complete facial hair removal including eyebrows, lip, and chin",
     duration: 45,
+    price: 65
+  },
+  {
+    id: "leg-wax-half",
+    name: "Half Leg Waxing",
+    description: "Hair removal for lower legs (knee to ankle)",
+    duration: 30,
+    price: 50
+  },
+  {
+    id: "leg-wax-full",
+    name: "Full Leg Waxing",
+    description: "Complete leg hair removal from thigh to ankle",
+    duration: 60,
+    price: 85
+  },
+  {
+    id: "bikini-wax",
+    name: "Bikini Waxing",
+    description: "Standard bikini line hair removal",
+    duration: 30,
     price: 55
   },
   {
-    id: "facial",
-    name: "Rejuvenating Facial",
-    description: "Deep cleansing and anti-aging treatment",
-    duration: 75,
-    price: 120
-  },
-  {
-    id: "color",
-    name: "Hair Color & Highlights",
-    description: "Professional coloring and highlighting service",
-    duration: 120,
-    price: 150
-  },
-  {
-    id: "massage",
-    name: "Relaxation Massage",
-    description: "Therapeutic full-body massage",
-    duration: 90,
-    price: 110
-  },
-  {
-    id: "eyebrows",
-    name: "Eyebrow Shaping",
-    description: "Precision eyebrow shaping and tinting",
-    duration: 30,
-    price: 35
+    id: "brazilian-wax",
+    name: "Brazilian Waxing",
+    description: "Complete intimate area hair removal",
+    duration: 45,
+    price: 75
   }
 ];
 
 const providers = [
   {
-    id: "sarah",
-    name: "Sarah Chen",
-    specialty: "Hair Styling & Color",
+    id: "maria",
+    name: "Maria Rodriguez",
+    specialty: "Skincare & Facial Treatments",
     experience: "8+ years experience",
     isAvailable: true
   },
   {
-    id: "maria",
-    name: "Maria Rodriguez",
-    specialty: "Skincare & Facials",
+    id: "jessica",
+    name: "Jessica Kim",
+    specialty: "Swedish Massage Therapy",
+    experience: "10+ years experience",
+    isAvailable: true
+  },
+  {
+    id: "sarah",
+    name: "Sarah Chen",
+    specialty: "Waxing & Hair Removal",
     experience: "6+ years experience",
     isAvailable: true
   },
   {
     id: "alex",
     name: "Alex Thompson",
-    specialty: "Nail Care & Art",
-    experience: "5+ years experience",
-    isAvailable: true
-  },
-  {
-    id: "jessica",
-    name: "Jessica Kim",
-    specialty: "Massage Therapy",
-    experience: "10+ years experience",
+    specialty: "All Services Specialist",
+    experience: "7+ years experience",
     isAvailable: false
   }
 ];
@@ -143,8 +185,8 @@ const Index = () => {
             Vita Lux Beauty Salon
           </h1>
           <p className="text-xl text-salon-charcoal/80 mb-8 max-w-2xl mx-auto">
-            Experience luxury beauty services in a serene, sophisticated environment. 
-            Book your appointment today and indulge in our premium treatments.
+            Specializing in rejuvenating facials, relaxing Swedish massages, and professional waxing services. 
+            Book your appointment today and experience our premium treatments.
           </p>
         </div>
       </section>
