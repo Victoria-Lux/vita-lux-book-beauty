@@ -24,6 +24,15 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				salon: {
+					gold: 'hsl(var(--salon-gold))',
+					'gold-light': 'hsl(var(--salon-gold-light))',
+					rose: 'hsl(var(--salon-rose))',
+					cream: 'hsl(var(--salon-cream))',
+					'warm-white': 'hsl(var(--salon-warm-white))',
+					charcoal: 'hsl(var(--salon-charcoal))',
+					sage: 'hsl(var(--salon-sage))',
+				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
