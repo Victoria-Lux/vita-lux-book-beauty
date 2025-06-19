@@ -24,13 +24,6 @@ const services = [
     price: 125
   },
   {
-    id: "acne-facial",
-    name: "Acne Treatment Facial",
-    description: "Specialized treatment for acne-prone skin with extractions",
-    duration: 75,
-    price: 95
-  },
-  {
     id: "swedish-massage-60",
     name: "Swedish Massage (60 min)",
     description: "Full-body relaxation massage with gentle, flowing strokes",
@@ -45,27 +38,6 @@ const services = [
     price: 140
   },
   {
-    id: "eyebrow-wax",
-    name: "Eyebrow Waxing",
-    description: "Professional eyebrow shaping and grooming",
-    duration: 30,
-    price: 35
-  },
-  {
-    id: "lip-wax",
-    name: "Lip Waxing",
-    description: "Gentle upper lip hair removal",
-    duration: 15,
-    price: 20
-  },
-  {
-    id: "full-face-wax",
-    name: "Full Face Waxing",
-    description: "Complete facial hair removal including eyebrows, lip, and chin",
-    duration: 45,
-    price: 65
-  },
-  {
     id: "leg-wax-half",
     name: "Half Leg Waxing",
     description: "Hair removal for lower legs (knee to ankle)",
@@ -78,20 +50,6 @@ const services = [
     description: "Complete leg hair removal from thigh to ankle",
     duration: 60,
     price: 85
-  },
-  {
-    id: "bikini-wax",
-    name: "Bikini Waxing",
-    description: "Standard bikini line hair removal",
-    duration: 30,
-    price: 55
-  },
-  {
-    id: "brazilian-wax",
-    name: "Brazilian Waxing",
-    description: "Complete intimate area hair removal",
-    duration: 45,
-    price: 75
   }
 ];
 
