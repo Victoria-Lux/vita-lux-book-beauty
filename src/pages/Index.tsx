@@ -55,32 +55,11 @@ const services = [
 
 const providers = [
   {
-    id: "maria",
-    name: "Maria Rodriguez",
-    specialty: "Skincare & Facial Treatments",
-    experience: "8+ years experience",
-    isAvailable: true
-  },
-  {
-    id: "jessica",
-    name: "Jessica Kim",
-    specialty: "Swedish Massage Therapy",
+    id: "victoria",
+    name: "Victoria Arabei",
+    specialty: "Facials, Swedish Massage & Waxing Specialist",
     experience: "10+ years experience",
     isAvailable: true
-  },
-  {
-    id: "sarah",
-    name: "Sarah Chen",
-    specialty: "Waxing & Hair Removal",
-    experience: "6+ years experience",
-    isAvailable: true
-  },
-  {
-    id: "alex",
-    name: "Alex Thompson",
-    specialty: "All Services Specialist",
-    experience: "7+ years experience",
-    isAvailable: false
   }
 ];
 
