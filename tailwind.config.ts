@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -18,6 +19,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'inter': ['Inter', 'sans-serif'],
+				'playfair': ['Playfair Display', 'serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -25,13 +30,18 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				salon: {
-					gold: 'hsl(var(--salon-gold))',
-					'gold-light': 'hsl(var(--salon-gold-light))',
-					rose: 'hsl(var(--salon-rose))',
+					coral: 'hsl(var(--salon-coral))',
+					'coral-light': 'hsl(var(--salon-coral-light))',
+					'coral-dark': 'hsl(var(--salon-coral-dark))',
 					cream: 'hsl(var(--salon-cream))',
-					'warm-white': 'hsl(var(--salon-warm-white))',
+					white: 'hsl(var(--salon-white))',
+					'gray-50': 'hsl(var(--salon-gray-50))',
+					'gray-100': 'hsl(var(--salon-gray-100))',
+					'gray-200': 'hsl(var(--salon-gray-200))',
+					'gray-400': 'hsl(var(--salon-gray-400))',
+					'gray-600': 'hsl(var(--salon-gray-600))',
+					'gray-800': 'hsl(var(--salon-gray-800))',
 					charcoal: 'hsl(var(--salon-charcoal))',
-					sage: 'hsl(var(--salon-sage))',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

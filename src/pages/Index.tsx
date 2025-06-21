@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Header from "@/components/Header";
 import ServiceCard from "@/components/ServiceCard";
@@ -112,35 +113,78 @@ const Index = () => {
   const selectedProviderData = providers.find(p => p.id === selectedProvider);
 
   return (
-    <div className="min-h-screen bg-salon-warm-white">
+    <div className="min-h-screen bg-salon-white">
       <Header />
       
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-salon-cream to-salon-rose py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-salon-charcoal mb-4">
-            Vita Lux Beauty Salon
-          </h1>
-          <p className="text-xl text-salon-charcoal/80 mb-8 max-w-2xl mx-auto">
-            Specializing in rejuvenating facials, relaxing Swedish massages, and professional waxing services. 
-            Book your appointment today and experience our premium treatments.
-          </p>
+      {/* Hero Section - Inspired by Tanya Martin's clean, elegant style */}
+      <section className="bg-salon-cream py-20 lg:py-32">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-playfair font-medium text-salon-charcoal mb-6 leading-tight">
+              HEALTHY, RADIANT SKIN<br />
+              <span className="text-salon-coral">STARTS HERE...</span>
+            </h1>
+            <p className="text-lg md:text-xl text-salon-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
+              Experience Customized Luxurious Beauty Services at Vita Lux — Expert Formulations Tailored to Your Unique Needs
+            </p>
+            <button className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-8 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+              Book Now
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Preview Section */}
+      <section className="py-20 bg-salon-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-playfair font-medium text-salon-charcoal mb-4">
+              EXPLORE SERVICES
+            </h2>
+            <p className="text-salon-gray-600 max-w-2xl mx-auto">
+              Find the perfect treatments tailored to your specific needs and goals.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="group relative overflow-hidden rounded-lg bg-salon-gray-50 aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-xl font-playfair font-medium mb-2">FACIAL TREATMENTS</h3>
+                <p className="text-sm opacity-90">MORE INFO →</p>
+              </div>
+            </div>
+            <div className="group relative overflow-hidden rounded-lg bg-salon-gray-50 aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-xl font-playfair font-medium mb-2">MASSAGE THERAPY</h3>
+                <p className="text-sm opacity-90">MORE INFO →</p>
+              </div>
+            </div>
+            <div className="group relative overflow-hidden rounded-lg bg-salon-gray-50 aspect-square">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div className="absolute bottom-6 left-6 text-white">
+                <h3 className="text-xl font-playfair font-medium mb-2">WAXING SERVICES</h3>
+                <p className="text-sm opacity-90">MORE INFO →</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Booking Section */}
-      <section className="container mx-auto px-4 py-16">
+      <section className="container mx-auto px-4 py-20 bg-salon-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-salon-charcoal mb-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-playfair font-medium text-salon-charcoal mb-12 text-center">
             Book Your Appointment
           </h2>
           
           <div className="space-y-12">
             {/* Step 1: Select Service */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-salon-charcoal flex items-center">
-                  <span className="bg-salon-gold text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold">
+            <Card className="border-salon-gray-200 shadow-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+                  <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
                     1
                   </span>
                   Choose Your Service
@@ -162,10 +206,10 @@ const Index = () => {
 
             {/* Step 2: Select Provider */}
             {selectedService && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-salon-charcoal flex items-center">
-                    <span className="bg-salon-gold text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold">
+              <Card className="border-salon-gray-200 shadow-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+                    <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
                       2
                     </span>
                     Choose Your Provider
@@ -188,10 +232,10 @@ const Index = () => {
 
             {/* Step 3: Select Date & Time */}
             {selectedProvider && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-salon-charcoal flex items-center">
-                    <span className="bg-salon-gold text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold">
+              <Card className="border-salon-gray-200 shadow-sm">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+                    <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
                       3
                     </span>
                     Pick Date & Time
@@ -212,10 +256,10 @@ const Index = () => {
             {selectedTime && (
               <div>
                 <div className="flex items-center mb-6">
-                  <span className="bg-salon-gold text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm font-bold">
+                  <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
                     4
                   </span>
-                  <h3 className="text-2xl font-bold text-salon-charcoal">Complete Your Booking</h3>
+                  <h3 className="text-2xl font-playfair font-medium text-salon-charcoal">Complete Your Booking</h3>
                 </div>
                 <BookingForm
                   selectedService={selectedServiceData?.name}
@@ -232,29 +276,36 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-salon-charcoal text-white py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="mb-6">
-            <h3 className="text-2xl font-bold mb-2">Vita Lux Beauty Salon</h3>
-            <p className="text-white/80">Your journey to beauty begins here</p>
+      <footer className="bg-salon-charcoal text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <div className="border border-salon-gray-600 px-4 py-2 rounded-sm inline-block mb-4">
+              <div className="text-xl font-playfair font-medium tracking-wider">
+                VITA LUX
+              </div>
+              <div className="text-xs text-salon-gray-400 tracking-widest uppercase">
+                BEAUTY SALON
+              </div>
+            </div>
+            <p className="text-salon-gray-400">Your journey to beauty begins here</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
-            <div>
-              <h4 className="font-semibold mb-2">Contact</h4>
-              <p className="text-white/70">123 Beauty Lane</p>
-              <p className="text-white/70">City, State 12345</p>
-              <p className="text-white/70">(555) 123-4567</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm max-w-4xl mx-auto">
+            <div className="text-center">
+              <h4 className="font-semibold mb-3 text-white">Contact</h4>
+              <p className="text-salon-gray-400">123 Beauty Lane</p>
+              <p className="text-salon-gray-400">City, State 12345</p>
+              <p className="text-salon-gray-400">(555) 123-4567</p>
             </div>
-            <div>
-              <h4 className="font-semibold mb-2">Hours</h4>
-              <p className="text-white/70">Mon-Fri: 9AM-7PM</p>
-              <p className="text-white/70">Saturday: 9AM-6PM</p>
-              <p className="text-white/70">Sunday: 10AM-5PM</p>
+            <div className="text-center">
+              <h4 className="font-semibold mb-3 text-white">Hours</h4>
+              <p className="text-salon-gray-400">Mon-Fri: 9AM-7PM</p>
+              <p className="text-salon-gray-400">Saturday: 9AM-6PM</p>
+              <p className="text-salon-gray-400">Sunday: 10AM-5PM</p>
             </div>
-            <div>
-              <h4 className="font-semibold mb-2">Follow Us</h4>
-              <p className="text-white/70">@vitaluxsalon</p>
-              <p className="text-white/70">Connect with us on social media</p>
+            <div className="text-center">
+              <h4 className="font-semibold mb-3 text-white">Follow Us</h4>
+              <p className="text-salon-gray-400">@vitaluxsalon</p>
+              <p className="text-salon-gray-400">Connect with us on social media</p>
             </div>
           </div>
         </div>
