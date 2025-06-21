@@ -1,7 +1,11 @@
 
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import AuthButton from "./AuthButton";
 
 const Header = () => {
+  const { user } = useAuth();
+
   return (
     <header className="bg-salon-white border-b border-salon-gray-100 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -30,15 +34,12 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
-              className="text-salon-gray-600 hover:text-salon-charcoal hover:bg-salon-gray-50"
-            >
-              Sign In
-            </Button>
-            <Button className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-6 py-2 rounded-full">
-              Book an Appointment
-            </Button>
+            {!user && (
+              <Button className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-6 py-2 rounded-full">
+                Book an Appointment
+              </Button>
+            )}
+            <AuthButton />
           </div>
         </div>
       </div>

@@ -1,12 +1,15 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ServiceCard from "@/components/ServiceCard";
 import ProviderCard from "@/components/ProviderCard";
 import TimeSlotPicker from "@/components/TimeSlotPicker";
-import BookingForm, { BookingFormData } from "@/components/BookingForm";
+import BookingForm from "@/components/BookingForm";
+import AuthButton from "@/components/AuthButton";
+import CustomerInfoForm from "@/components/CustomerInfoForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase, Customer, Appointment } from "@/lib/supabase";
 
 // Your Services
 const services = [
@@ -69,12 +72,45 @@ const Index = () => {
   const [selectedProvider, setSelectedProvider] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [loadingCustomer, setLoadingCustomer] = useState(false);
   
   const { toast } = useToast();
+  const { user, loading: authLoading } = useAuth();
+
+  // Fetch customer data when user is authenticated
+  useEffect(() => {
+    const fetchCustomer = async () => {
+      if (!user) {
+        setCustomer(null);
+        return;
+      }
+
+      setLoadingCustomer(true);
+      try {
+        const { data, error } = await supabase
+          .from('customers')
+          .select('*')
+          .eq('auth_user_id', user.id)
+          .single();
+
+        if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+          throw error;
+        }
+
+        setCustomer(data);
+      } catch (error) {
+        console.error('Error fetching customer:', error);
+      } finally {
+        setLoadingCustomer(false);
+      }
+    };
+
+    fetchCustomer();
+  }, [user]);
 
   const handleServiceSelect = (serviceId: string) => {
     setSelectedService(serviceId);
-    // Reset provider when service changes
     setSelectedProvider("");
   };
 
@@ -84,7 +120,6 @@ const Index = () => {
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
-    // Reset time when date changes
     setSelectedTime("");
   };
 
@@ -92,17 +127,12 @@ const Index = () => {
     setSelectedTime(time);
   };
 
-  const handleBookingSubmit = (formData: BookingFormData) => {
-    // In a real app, this would submit to a backend
-    const selectedServiceData = services.find(s => s.id === selectedService);
-    const selectedProviderData = providers.find(p => p.id === selectedProvider);
-    
-    toast({
-      title: "Booking Confirmed! 🎉",
-      description: `Your appointment with ${selectedProviderData?.name} for ${selectedServiceData?.name} has been booked successfully. You will receive a confirmation email shortly.`,
-    });
+  const handleCustomerCreated = (newCustomer: Customer) => {
+    setCustomer(newCustomer);
+  };
 
-    // Reset form
+  const handleBookingSubmit = (appointment: Appointment) => {
+    // Reset form after successful booking
     setSelectedService("");
     setSelectedProvider("");
     setSelectedDate(undefined);
@@ -111,6 +141,10 @@ const Index = () => {
 
   const selectedServiceData = services.find(s => s.id === selectedService);
   const selectedProviderData = providers.find(p => p.id === selectedProvider);
+
+  const showAuthRequired = !authLoading && !user;
+  const showCustomerForm = user && !loadingCustomer && !customer;
+  const showBookingFlow = user && customer;
 
   return (
     <div className="min-h-screen bg-salon-white">
@@ -179,99 +213,118 @@ const Index = () => {
             Book Your Appointment
           </h2>
           
-          <div className="space-y-12">
-            {/* Step 1: Select Service */}
-            <Card className="border-salon-gray-200 shadow-sm">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
-                  <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
-                    1
-                  </span>
-                  Choose Your Service
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {services.map((service) => (
-                    <ServiceCard
-                      key={service.id}
-                      {...service}
-                      isSelected={selectedService === service.id}
-                      onSelect={handleServiceSelect}
-                    />
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+          {/* Authentication Required */}
+          {showAuthRequired && (
+            <div className="max-w-md mx-auto mb-12">
+              <AuthButton />
+            </div>
+          )}
 
-            {/* Step 2: Select Provider */}
-            {selectedService && (
+          {/* Customer Information Form */}
+          {showCustomerForm && (
+            <div className="max-w-2xl mx-auto mb-12">
+              <CustomerInfoForm onCustomerCreated={handleCustomerCreated} />
+            </div>
+          )}
+
+          {/* Booking Flow - Only show when authenticated and customer info is complete */}
+          {showBookingFlow && (
+            <div className="space-y-12">
+              {/* Step 1: Select Service */}
               <Card className="border-salon-gray-200 shadow-sm">
                 <CardHeader className="pb-4">
                   <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
                     <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
-                      2
+                      1
                     </span>
-                    Choose Your Provider
+                    Choose Your Service
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {providers.map((provider) => (
-                      <ProviderCard
-                        key={provider.id}
-                        {...provider}
-                        isSelected={selectedProvider === provider.id}
-                        onSelect={handleProviderSelect}
+                    {services.map((service) => (
+                      <ServiceCard
+                        key={service.id}
+                        {...service}
+                        isSelected={selectedService === service.id}
+                        onSelect={handleServiceSelect}
                       />
                     ))}
                   </div>
                 </CardContent>
               </Card>
-            )}
 
-            {/* Step 3: Select Date & Time */}
-            {selectedProvider && (
-              <Card className="border-salon-gray-200 shadow-sm">
-                <CardHeader className="pb-4">
-                  <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+              {/* Step 2: Select Provider */}
+              {selectedService && (
+                <Card className="border-salon-gray-200 shadow-sm">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+                      <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
+                        2
+                      </span>
+                      Choose Your Provider
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {providers.map((provider) => (
+                        <ProviderCard
+                          key={provider.id}
+                          {...provider}
+                          isSelected={selectedProvider === provider.id}
+                          onSelect={handleProviderSelect}
+                        />
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Step 3: Select Date & Time */}
+              {selectedProvider && (
+                <Card className="border-salon-gray-200 shadow-sm">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-salon-charcoal flex items-center text-xl font-playfair">
+                      <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
+                        3
+                      </span>
+                      Pick Date & Time
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <TimeSlotPicker
+                      selectedDate={selectedDate}
+                      selectedTime={selectedTime}
+                      onDateSelect={handleDateSelect}
+                      onTimeSelect={handleTimeSelect}
+                    />
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Step 4: Booking Form */}
+              {selectedTime && customer && (
+                <div>
+                  <div className="flex items-center mb-6">
                     <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
-                      3
+                      4
                     </span>
-                    Pick Date & Time
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TimeSlotPicker
+                    <h3 className="text-2xl font-playfair font-medium text-salon-charcoal">Complete Your Booking</h3>
+                  </div>
+                  <BookingForm
+                    customer={customer}
+                    selectedService={selectedServiceData?.name}
+                    selectedProvider={selectedProviderData?.name}
                     selectedDate={selectedDate}
                     selectedTime={selectedTime}
-                    onDateSelect={handleDateSelect}
-                    onTimeSelect={handleTimeSelect}
+                    servicePrice={selectedServiceData?.price}
+                    serviceDuration={selectedServiceData?.duration}
+                    onSubmit={handleBookingSubmit}
                   />
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Step 4: Booking Form */}
-            {selectedTime && (
-              <div>
-                <div className="flex items-center mb-6">
-                  <span className="bg-salon-coral text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 text-sm font-bold">
-                    4
-                  </span>
-                  <h3 className="text-2xl font-playfair font-medium text-salon-charcoal">Complete Your Booking</h3>
                 </div>
-                <BookingForm
-                  selectedService={selectedServiceData?.name}
-                  selectedProvider={selectedProviderData?.name}
-                  selectedDate={selectedDate}
-                  selectedTime={selectedTime}
-                  servicePrice={selectedServiceData?.price}
-                  onSubmit={handleBookingSubmit}
-                />
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
