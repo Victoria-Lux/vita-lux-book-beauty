@@ -1,14 +1,23 @@
 
 import { createClient } from '@supabase/supabase-js'
 
+// These environment variables should be set in your Supabase project settings
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+  console.error('Missing Supabase environment variables. Please set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your Supabase project settings.')
+  console.log('1. Go to your Supabase dashboard')
+  console.log('2. Navigate to Settings > API')
+  console.log('3. Copy your Project URL and anon/public key')
+  console.log('4. Set them as environment variables in Lovable')
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Create a fallback client to prevent app crashes during setup
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co', 
+  supabaseAnonKey || 'placeholder-key'
+)
 
 export type Customer = {
   id: string
