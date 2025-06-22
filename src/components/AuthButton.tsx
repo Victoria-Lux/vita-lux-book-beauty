@@ -12,7 +12,12 @@ const AuthButton = () => {
   const handleSignIn = async (provider: 'google' | 'facebook' | 'apple') => {
     try {
       await signInWithProvider(provider)
+      toast({
+        title: "Redirecting...",
+        description: `Redirecting to ${provider} for authentication.`,
+      })
     } catch (error) {
+      console.error('Sign in error:', error)
       toast({
         title: "Sign In Error",
         description: "There was an error signing in. Please try again.",
@@ -29,6 +34,7 @@ const AuthButton = () => {
         description: "You have been successfully signed out.",
       })
     } catch (error) {
+      console.error('Sign out error:', error)
       toast({
         title: "Sign Out Error",
         description: "There was an error signing out. Please try again.",
