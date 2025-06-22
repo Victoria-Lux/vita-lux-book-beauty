@@ -6,6 +6,13 @@ import AuthButton from "./AuthButton";
 const Header = () => {
   const { user } = useAuth();
 
+  const scrollToBooking = () => {
+    const bookingSection = document.getElementById('booking-section');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="bg-salon-white border-b border-salon-gray-100 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -35,7 +42,10 @@ const Header = () => {
           
           <div className="flex items-center space-x-3">
             {!user && (
-              <Button className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-6 py-2 rounded-full">
+              <Button 
+                onClick={scrollToBooking}
+                className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-6 py-2 rounded-full"
+              >
                 Book an Appointment
               </Button>
             )}

@@ -146,6 +146,13 @@ const Index = () => {
   const showCustomerForm = user && !loadingCustomer && !customer;
   const showBookingFlow = user && customer;
 
+  const scrollToBooking = () => {
+    const bookingSection = document.getElementById('booking-section');
+    if (bookingSection) {
+      bookingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-salon-white">
       <Header />
@@ -161,7 +168,10 @@ const Index = () => {
             <p className="text-lg md:text-xl text-salon-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed">
               Experience Customized Luxurious Beauty Services at Vita Lux — Expert Formulations Tailored to Your Unique Needs
             </p>
-            <button className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-8 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+            <button 
+              onClick={scrollToBooking}
+              className="bg-salon-coral hover:bg-salon-coral-dark text-white font-medium px-8 py-4 rounded-full text-lg transition-all duration-300 transform hover:scale-105"
+            >
               Book Now
             </button>
           </div>
@@ -207,7 +217,7 @@ const Index = () => {
       </section>
 
       {/* Booking Section */}
-      <section className="container mx-auto px-4 py-20 bg-salon-gray-50">
+      <section id="booking-section" className="container mx-auto px-4 py-20 bg-salon-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-playfair font-medium text-salon-charcoal mb-12 text-center">
             Book Your Appointment
